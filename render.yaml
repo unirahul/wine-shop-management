@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: grand-cru-wine-erp
+    env: node
+    plan: free
+    buildCommand: npm install && cd client && npm install && npm run build && cd ..
+    startCommand: node server/index.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+    disk:
+      name: wine-db-storage
+      mountPath: /app/data
+      sizeGB: 1

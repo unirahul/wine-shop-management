@@ -1,0 +1,21 @@
+{
+  "name": "wine-shop-management",
+  "version": "1.0.0",
+  "description": "Multi-Branch Wine Shop ERP, POS, Purchasing, Inventory, Banking & Accounting Management System",
+  "main": "server/index.js",
+  "scripts": {
+    "server": "node server/index.js",
+    "client": "npm run dev --prefix client",
+    "build": "npm install --prefix client && npm run build --prefix client",
+    "start": "node server/index.js"
+  },
+  "keywords": ["wine", "erp", "pos", "accounting", "inventory", "banking"],
+  "author": "Antigravity",
+  "license": "ISC",
+  "dependencies": {
+    "better-sqlite3": "^12.6.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1"
+  }
+}
