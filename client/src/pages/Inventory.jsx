@@ -14,8 +14,7 @@ import {
   Clock,
   Sparkles,
   Wine,
-  Building2,
-  DollarSign
+  Building2
 } from 'lucide-react';
 
 export default function Inventory() {
@@ -807,11 +806,11 @@ export default function Inventory() {
                   onChange={(e) => setAdjustmentForm({ ...adjustmentForm, reason: e.target.value })}
                   className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none"
                 >
-                  <option value="Bottle Breakage">Bottle Breakage (Transit/Floor accident)</option>
-                  <option value="Corked / Spoiled Wine">Corked / Oxidized Wine Taint</option>
-                  <option value="Sommelier Tasting Flight">Sommelier Tasting Flight / Masterclass</option>
+                  <option value="Bottle Breakage">Bottle Breakage (Transit/Shop floor accident)</option>
+                  <option value="Spoiled / Leakage Bottle">Corked / Spoiled / Leakage Bottle</option>
+                  <option value="Tasting / Promotional Sample">Tasting / Promotional Sample</option>
                   <option value="Stocktaking Discrepancy">Stocktaking Audit Discrepancy</option>
-                  <option value="Promotional Gift">VIP Promotional Tasting Sample</option>
+                  <option value="Excise Inspection Sample">Excise Inspection / Lab Sample</option>
                 </select>
               </div>
 
@@ -821,7 +820,7 @@ export default function Inventory() {
                   rows="2"
                   value={adjustmentForm.notes}
                   onChange={(e) => setAdjustmentForm({ ...adjustmentForm, notes: e.target.value })}
-                  placeholder="e.g. Dropped during shelf restocking by cellar assistant"
+                  placeholder="e.g. Broken during carton unloading or shelf restocking"
                   className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white"
                 ></textarea>
               </div>
@@ -874,12 +873,12 @@ export default function Inventory() {
               </div>
 
               <div>
-                <label className="block text-slate-400 mb-1">Batch / Lot Number</label>
+                <label className="block text-slate-400 mb-1">Batch / Consignment Number</label>
                 <input
                   type="text"
                   value={batchLotInput}
                   onChange={(e) => setBatchLotInput(e.target.value)}
-                  placeholder="e.g. LOT-2026-CHATEAU-01"
+                  placeholder="e.g. BATCH-2026-MUM-01"
                   className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono"
                 />
               </div>

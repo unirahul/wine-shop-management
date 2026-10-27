@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { AppProvider } from './context/AppContext';
+import { AppProvider, useApp } from './context/AppContext';
 import Layout from './components/Layout';
+import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import PointOfSale from './pages/PointOfSale';
 import SalesInvoices from './pages/SalesInvoices';
@@ -12,9 +13,16 @@ import ReceiptsPayments from './pages/ReceiptsPayments';
 import Accounting from './pages/Accounting';
 import Branches from './pages/Branches';
 import Customers from './pages/Customers';
+import Users from './pages/Users';
 
 function AppContent() {
+  const { user } = useApp();
   const [activeTab, setActiveTab] = useState('dashboard');
+
+  // If not logged in, show Login screen
+  if (!user) {
+    return <Login />;
+  }
 
   const renderContent = () => {
     switch (activeTab) {
@@ -40,6 +48,8 @@ function AppContent() {
         return <Branches />;
       case 'customers':
         return <Customers />;
+      case 'users':
+        return <Users />;
       default:
         return <Dashboard setActiveTab={setActiveTab} />;
     }

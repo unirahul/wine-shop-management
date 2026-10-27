@@ -241,7 +241,7 @@ function initDatabase() {
       branch_id INTEGER REFERENCES branches(id), -- NULL if corporate central account
       opening_balance REAL DEFAULT 0.0,
       current_balance REAL DEFAULT 0.0,
-      currency TEXT DEFAULT 'USD',
+      currency TEXT DEFAULT 'INR',
       gl_account_id INTEGER,
       is_active INTEGER DEFAULT 1,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
@@ -330,6 +330,21 @@ function initDatabase() {
       payee_name TEXT,
       reference_no TEXT,
       notes TEXT,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
+    -- Users & Staff (Branch-wise authentication)
+    CREATE TABLE IF NOT EXISTS users (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      username TEXT UNIQUE NOT NULL,
+      password TEXT NOT NULL,
+      name TEXT NOT NULL,
+      role TEXT NOT NULL DEFAULT 'cashier', -- 'admin', 'manager', 'cashier'
+      branch_id INTEGER REFERENCES branches(id), -- NULL for Super Admin (All branches), or specific branch
+      phone TEXT,
+      email TEXT,
+      pin TEXT,
+      is_active INTEGER DEFAULT 1,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
   `);

@@ -174,4 +174,20 @@ router.get('/', (req, res) => {
   }
 });
 
+// POST /api/dashboard/clean-database - Wipe and re-seed clean Indian data
+router.post('/clean-database', (req, res) => {
+  try {
+    const { cleanAndSeedDatabase } = require('../seeder');
+    const stats = cleanAndSeedDatabase();
+    res.json({
+      success: true,
+      message: 'Database cleaned and reseeded with Indian style catalog and outlets successfully!',
+      stats
+    });
+  } catch (err) {
+    console.error('Error in clean-database API:', err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 module.exports = router;

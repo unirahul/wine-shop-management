@@ -18,16 +18,20 @@ import {
   User,
   Sparkles,
   Tag,
-  AlertCircle
+  AlertCircle,
+  Lock
 } from 'lucide-react';
 
 export default function PointOfSale() {
-  const { branches, selectedBranchId, formatCurrency, addToast, triggerRefresh } = useApp();
+  const { user, branches, selectedBranchId, formatCurrency, addToast, triggerRefresh } = useApp();
 
-  // Selected branch for POS billing
-  const [posBranchId, setPosBranchId] = useState(
-    selectedBranchId !== 'all' ? selectedBranchId : (branches[0]?.id || 1)
-  );
+  // Selected branch for POS billing (locked to assigned branch for non-admins)
+  const [posBranchId, setPosBranchId] = useState(() => {
+    if (user && user.role !== 'admin' && user.branch_id) {
+      return Number(user.branch_id);
+    }
+    return selectedBranchId !== 'all' ? Number(selectedBranchId) : (branches[0]?.id || 1);
+  });
 
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -189,7 +193,7 @@ export default function PointOfSale() {
       return;
     }
     if (paymentMethod === 'Cash' && tenderedNum > 0 && tenderedNum < grandTotal) {
-      addToast(`Cash tendered ($${tenderedNum.toFixed(2)}) is less than total bill ($${grandTotal.toFixed(2)})`, 'error');
+      addToast(`Cash tendered (₹${tenderedNum.toFixed(2)}) is less than total bill (₹${grandTotal.toFixed(2)})`, 'error');
       return;
     }
 
@@ -249,9 +253,9 @@ export default function PointOfSale() {
   };
 
   return (
-    <div className="h-[calc(100vh-7rem)] flex flex-col lg:flex-row gap-5 max-w-[1700px] mx-auto">
+    <div className="min-h-full flex flex-col lg:flex-row gap-4 sm:gap-5 max-w-[1700px] mx-auto pb-16 lg:pb-0 lg:h-[calc(100vh-7rem)]">
       {/* LEFT: Product Catalog & Search (60%) */}
-      <div className="flex-1 flex flex-col bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-lg">
+      <div className="flex-1 flex flex-col bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-lg min-h-[420px] lg:min-h-0">
         {/* Top Filter Bar */}
         <div className="p-4 border-b border-slate-800 space-y-3 bg-slate-900/90">
           <div className="flex flex-col sm:flex-row gap-3 items-center justify-between">
@@ -260,17 +264,24 @@ export default function PointOfSale() {
               <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider shrink-0">
                 POS Branch:
               </span>
-              <select
-                value={posBranchId}
-                onChange={(e) => setPosBranchId(Number(e.target.value))}
-                className="bg-slate-800 border border-slate-700 text-amber-300 text-xs font-bold rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-1 focus:ring-amber-500 cursor-pointer"
-              >
-                {branches.map(b => (
-                  <option key={b.id} value={b.id}>
-                    {b.code} - {b.name}
-                  </option>
-                ))}
-              </select>
+              {user?.role === 'admin' ? (
+                <select
+                  value={posBranchId}
+                  onChange={(e) => setPosBranchId(Number(e.target.value))}
+                  className="bg-slate-800 border border-slate-700 text-amber-300 text-xs font-bold rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-1 focus:ring-amber-500 cursor-pointer"
+                >
+                  {branches.map(b => (
+                    <option key={b.id} value={b.id}>
+                      {b.code} - {b.name}
+                    </option>
+                  ))}
+                </select>
+              ) : (
+                <div className="flex items-center gap-1.5 bg-slate-800/90 border border-slate-700 px-2.5 py-1.5 rounded-lg text-xs font-bold text-amber-300">
+                  <Lock className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                  <span>{user?.branch_name || branches.find(b => b.id === posBranchId)?.name || 'Assigned Branch'}</span>
+                </div>
+              )}
             </div>
 
             {/* Live Search bar */}
@@ -392,7 +403,7 @@ export default function PointOfSale() {
       </div>
 
       {/* RIGHT: Active Bill & Checkout Panel (40%) */}
-      <div className="w-full lg:w-[460px] flex flex-col bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
+      <div id="pos-checkout-panel" className="w-full lg:w-[460px] flex flex-col bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl shrink-0">
         {/* Customer Header */}
         <div className="p-4 border-b border-slate-800 bg-slate-900/90 space-y-2">
           <div className="flex items-center justify-between">
@@ -500,14 +511,14 @@ export default function PointOfSale() {
             <div className="flex justify-between items-center">
               <span className="text-slate-400 flex items-center gap-1">
                 <Tag className="w-3 h-3 text-amber-400" />
-                Discount Voucher ($)
+                Discount Voucher (₹)
               </span>
               <input
                 type="number"
                 min="0"
                 value={discountAmount}
                 onChange={(e) => setDiscountAmount(e.target.value)}
-                className="w-20 bg-slate-800 border border-slate-700 text-right px-2 py-0.5 rounded text-xs text-slate-100 focus:outline-none focus:ring-1 focus:ring-amber-500"
+                className="w-20 bg-slate-800 border border-slate-700 text-right px-2 py-0.5 rounded text-xs text-slate-100 focus:outline-none focus:ring-1 focus:ring-amber-500 font-mono"
               />
             </div>
             <div className="flex justify-between items-center text-base font-bold text-white pt-2 border-t border-slate-800">
@@ -520,10 +531,10 @@ export default function PointOfSale() {
           <div className="space-y-2">
             <div className="grid grid-cols-4 gap-1.5">
               {[
-                { id: 'Cash', icon: Banknote },
-                { id: 'Credit Card', icon: CreditCard },
-                { id: 'UPI / QR', icon: QrCode },
-                { id: 'Account Credit', icon: Building }
+                { id: 'Cash', label: 'Cash (नकद)', icon: Banknote },
+                { id: 'UPI / QR', label: 'UPI / Soundbox', icon: QrCode },
+                { id: 'Credit Card', label: 'Card (POS)', icon: CreditCard },
+                { id: 'Account Credit', label: 'Khata (खाता)', icon: Building }
               ].map(pm => {
                 const Icon = pm.icon;
                 const isSel = paymentMethod === pm.id;
@@ -538,7 +549,7 @@ export default function PointOfSale() {
                     }`}
                   >
                     <Icon className="w-4 h-4 mb-1" />
-                    <span>{pm.id}</span>
+                    <span className="truncate">{pm.label}</span>
                   </button>
                 );
               })}
@@ -548,20 +559,39 @@ export default function PointOfSale() {
             {paymentMethod === 'Cash' && (
               <div className="bg-slate-800/60 p-2.5 rounded-xl border border-slate-700/80 space-y-2">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-slate-400">Cash Received ($):</span>
+                  <span className="text-slate-400">Cash Received (₹):</span>
                   <input
                     type="number"
                     min="0"
                     placeholder={grandTotal.toString()}
                     value={cashTendered}
                     onChange={(e) => setCashTendered(e.target.value)}
-                    className="w-28 bg-slate-900 border border-slate-700 rounded px-2 py-1 text-right text-xs text-emerald-400 font-bold focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                    className="w-28 bg-slate-900 border border-slate-700 rounded px-2 py-1 text-right text-xs text-emerald-400 font-bold focus:outline-none focus:ring-1 focus:ring-emerald-500 font-mono"
                   />
+                </div>
+                {/* Indian Currency Quick Note Buttons */}
+                <div className="flex flex-wrap gap-1.5 pt-1">
+                  {[
+                    { label: 'Exact (पूरा)', val: grandTotal },
+                    { label: '₹50', val: 50 },
+                    { label: '₹100', val: 100 },
+                    { label: '₹200', val: 200 },
+                    { label: '₹500', val: 500 }
+                  ].map(note => (
+                    <button
+                      key={note.label}
+                      type="button"
+                      onClick={() => setCashTendered(note.val.toString())}
+                      className="px-2 py-0.5 rounded bg-slate-700 hover:bg-slate-600 text-[10px] text-amber-300 font-mono font-semibold transition-colors"
+                    >
+                      {note.label}
+                    </button>
+                  ))}
                 </div>
                 {changeDue > 0 && (
                   <div className="flex items-center justify-between text-xs font-semibold text-emerald-400 pt-1 border-t border-slate-700/50">
-                    <span>Change to Return:</span>
-                    <span className="text-sm font-bold">{formatCurrency(changeDue)}</span>
+                    <span>Change to Return (वापसी):</span>
+                    <span className="text-sm font-bold font-mono">{formatCurrency(changeDue)}</span>
                   </div>
                 )}
               </div>
@@ -617,18 +647,18 @@ export default function PointOfSale() {
             <div id="printable-area" className="space-y-3">
               <div className="text-center border-b border-dashed border-slate-300 pb-3">
                 <h2 className="font-serif font-black text-lg text-slate-950 tracking-wider uppercase">
-                  Grand Cru Wines
+                  Royal Heritage Wines & Spirits
                 </h2>
-                <p className="text-[11px] text-slate-600 font-sans">{completedSale.branch?.name}</p>
+                <p className="text-[11px] font-semibold text-slate-700 font-sans">{completedSale.branch?.name}</p>
                 <p className="text-[10px] text-slate-500 font-sans">{completedSale.branch?.address}, {completedSale.branch?.city}</p>
-                <p className="text-[10px] text-slate-500 font-sans">Liquor Lic: {completedSale.branch?.license_number}</p>
+                <p className="text-[10px] text-slate-600 font-sans">State Excise Lic: <span className="font-mono font-bold">{completedSale.branch?.license_number}</span></p>
                 <p className="text-[10px] text-slate-500 font-sans">Tel: {completedSale.branch?.phone}</p>
               </div>
 
               <div className="space-y-1 text-[11px] border-b border-dashed border-slate-300 pb-2">
                 <div className="flex justify-between">
-                  <span>Invoice #:</span>
-                  <span className="font-bold">{completedSale.invoiceNo}</span>
+                  <span>Tax Invoice #:</span>
+                  <span className="font-bold font-mono">{completedSale.invoiceNo}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Date/Time:</span>
@@ -636,19 +666,19 @@ export default function PointOfSale() {
                 </div>
                 <div className="flex justify-between">
                   <span>Customer:</span>
-                  <span>{completedSale.customerName}</span>
+                  <span className="font-medium">{completedSale.customerName}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Payment:</span>
-                  <span>{completedSale.paymentMethod}</span>
+                  <span>Payment Mode:</span>
+                  <span className="font-semibold">{completedSale.paymentMethod}</span>
                 </div>
               </div>
 
               {/* Items List */}
               <div className="border-b border-dashed border-slate-300 pb-2 space-y-1.5">
-                <div className="flex justify-between font-bold text-[11px]">
-                  <span>Item</span>
-                  <span>Qty × Price</span>
+                <div className="flex justify-between font-bold text-[11px] text-slate-800">
+                  <span>Item / Size</span>
+                  <span>Qty × Rate = Amount</span>
                 </div>
                 {completedSale.items.map((it, idx) => (
                   <div key={idx} className="flex justify-between text-[11px]">
@@ -657,8 +687,8 @@ export default function PointOfSale() {
                       <p className="text-[9px] text-slate-500">{it.bottle_size} {it.vintage_year || ''}</p>
                     </div>
                     <div className="text-right">
-                      <span>{it.quantity} × {it.unit_price.toFixed(2)}</span>
-                      <p className="font-bold">${(it.quantity * it.unit_price).toFixed(2)}</p>
+                      <span className="font-mono text-slate-600">{it.quantity} × ₹{it.unit_price.toFixed(2)}</span>
+                      <p className="font-bold font-mono text-slate-900">₹{(it.quantity * it.unit_price).toFixed(2)}</p>
                     </div>
                   </div>
                 ))}
@@ -668,41 +698,41 @@ export default function PointOfSale() {
               <div className="space-y-1 text-[11px]">
                 <div className="flex justify-between">
                   <span>Subtotal:</span>
-                  <span>${completedSale.subtotal.toFixed(2)}</span>
+                  <span className="font-mono">₹{completedSale.subtotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Tax:</span>
-                  <span>${completedSale.taxAmount.toFixed(2)}</span>
+                  <span>State Liquor VAT / Excise:</span>
+                  <span className="font-mono">₹{completedSale.taxAmount.toFixed(2)}</span>
                 </div>
                 {completedSale.discount > 0 && (
                   <div className="flex justify-between text-emerald-700">
                     <span>Discount:</span>
-                    <span>-${completedSale.discount.toFixed(2)}</span>
+                    <span className="font-mono">-₹{completedSale.discount.toFixed(2)}</span>
                   </div>
                 )}
                 <div className="flex justify-between font-bold text-sm pt-1 border-t border-slate-400 text-slate-950">
-                  <span>TOTAL PAID:</span>
-                  <span>${completedSale.grandTotal.toFixed(2)}</span>
+                  <span>TOTAL AMOUNT:</span>
+                  <span className="font-mono">₹{completedSale.grandTotal.toFixed(2)}</span>
                 </div>
 
                 {completedSale.paymentMethod === 'Cash' && completedSale.cashTendered > 0 && (
                   <>
                     <div className="flex justify-between text-slate-600 pt-1">
                       <span>Cash Tendered:</span>
-                      <span>${completedSale.cashTendered.toFixed(2)}</span>
+                      <span className="font-mono">₹{completedSale.cashTendered.toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between font-bold text-slate-900">
-                      <span>Change Given:</span>
-                      <span>${completedSale.changeDue.toFixed(2)}</span>
+                      <span>Change Returned:</span>
+                      <span className="font-mono">₹{completedSale.changeDue.toFixed(2)}</span>
                     </div>
                   </>
                 )}
               </div>
 
-              <div className="text-center pt-3 border-t border-dashed border-slate-300 text-[10px] text-slate-500 font-sans space-y-0.5">
-                <p className="font-bold text-slate-800">Santé! Thank you for your patronage.</p>
-                <p>Please drink responsibly. Must be 21+.</p>
-                <p className="text-[9px]">Wine returns accepted within 7 days with cork intact.</p>
+              <div className="text-center pt-3 border-t border-dashed border-slate-300 text-[10px] text-slate-600 font-sans space-y-1">
+                <p className="font-bold text-rose-700">⚠️ मदिरा पान स्वास्थ्य के लिए हानिकारक है | सुरक्षित रहें - शराब पीकर गाड़ी न चलाएं।</p>
+                <p className="text-[9px] text-slate-500">Statutory Warning: Consumption of liquor is injurious to health. Don't drink and drive.</p>
+                <p className="font-bold text-slate-800 text-[10px] pt-1">धन्यवाद! फिर पधारें | Thank You! Visit Again.</p>
               </div>
             </div>
 
@@ -723,6 +753,21 @@ export default function PointOfSale() {
               </button>
             </div>
           </div>
+        </div>
+      )}
+
+      {/* Mobile Floating View Bill Button */}
+      {cart.length > 0 && (
+        <div className="lg:hidden fixed bottom-4 right-4 z-30">
+          <button
+            onClick={() => {
+              document.getElementById('pos-checkout-panel')?.scrollIntoView({ behavior: 'smooth' });
+            }}
+            className="flex items-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold px-4 py-3 rounded-full shadow-2xl border border-amber-300 ring-4 ring-amber-500/20 active:scale-95 transition-all text-xs"
+          >
+            <ShoppingCart className="w-4 h-4" />
+            <span>Bill ({cart.reduce((s, it) => s + it.quantity, 0)} items) • {formatCurrency(grandTotal)}</span>
+          </button>
         </div>
       )}
     </div>

@@ -15,7 +15,7 @@ import {
   CheckCircle,
   X,
   Boxes,
-  DollarSign,
+  IndianRupee,
   AlertTriangle
 } from 'lucide-react';
 
@@ -31,7 +31,7 @@ export default function Branches() {
   const [form, setForm] = useState({
     code: '',
     name: '',
-    type: 'Retail Store & Tasting Lounge',
+    type: 'Retail Wine & Beer Shop (FL-II)',
     address: '',
     city: '',
     state: '',
@@ -49,14 +49,14 @@ export default function Branches() {
     setForm({
       code: nextCode,
       name: '',
-      type: 'Retail Store & Tasting Lounge',
+      type: 'Retail Wine & Beer Shop (FL-II)',
       address: '',
-      city: '',
-      state: 'NY',
-      zip_code: '',
-      phone: '',
+      city: 'Mumbai',
+      state: 'Maharashtra',
+      zip_code: '400050',
+      phone: '+91 ',
       email: '',
-      license_number: `LIQ-${Math.floor(100000 + Math.random() * 900000)}`,
+      license_number: `MH-FL-II-${Math.floor(100000 + Math.random() * 900000)}`,
       manager_name: '',
       is_warehouse: 0,
       is_active: 1
@@ -323,10 +323,11 @@ export default function Branches() {
                     onChange={(e) => setForm({ ...form, type: e.target.value })}
                     className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white"
                   >
-                    <option value="Retail Store & Tasting Lounge">Retail Store & Tasting Lounge</option>
-                    <option value="Boutique Waterfront Store">Boutique Waterfront Store</option>
-                    <option value="Central Warehouse & Hub">Central Warehouse & Hub</option>
-                    <option value="Airport Duty Free Cellar">Airport Duty Free Cellar</option>
+                    <option value="Retail Wine & Beer Shop (FL-II)">Retail Wine & Beer Shop (FL-II License)</option>
+                    <option value="Premium Model Liquor Vend (L-2)">Premium Model Liquor Vend (L-2)</option>
+                    <option value="Retail Liquor Outlet (CL-2)">Retail Liquor Outlet (CL-2)</option>
+                    <option value="Beachside Wine & Beer Retail (GA-RETL)">Beachside Wine & Beer Retail (Goa License)</option>
+                    <option value="Central Bonded Warehouse & Distribution Hub">Central Bonded Warehouse & Distribution Hub</option>
                   </select>
                 </div>
                 <div>
@@ -336,8 +337,8 @@ export default function Branches() {
                     onChange={(e) => setForm({ ...form, is_warehouse: Number(e.target.value) })}
                     className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white"
                   >
-                    <option value={0}>No (Retail Store / Cellar)</option>
-                    <option value={1}>Yes (Central Warehouse / Logistics)</option>
+                    <option value={0}>No (Retail Store / Counter)</option>
+                    <option value={1}>Yes (Central Godown / Logistics)</option>
                   </select>
                 </div>
               </div>
@@ -365,7 +366,7 @@ export default function Branches() {
                   type="text"
                   value={form.address}
                   onChange={(e) => setForm({ ...form, address: e.target.value })}
-                  placeholder="e.g. 500 West 33rd Street"
+                  placeholder="e.g. Shop No. 4, Linking Road, Bandra West"
                   className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white"
                 />
               </div>
@@ -377,7 +378,7 @@ export default function Branches() {
                     type="text"
                     value={form.city}
                     onChange={(e) => setForm({ ...form, city: e.target.value })}
-                    placeholder="New York"
+                    placeholder="Mumbai"
                     className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white"
                   />
                 </div>
@@ -387,17 +388,17 @@ export default function Branches() {
                     type="text"
                     value={form.state}
                     onChange={(e) => setForm({ ...form, state: e.target.value })}
-                    placeholder="NY"
+                    placeholder="Maharashtra"
                     className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-400 mb-1">Zip Code</label>
+                  <label className="block text-slate-400 mb-1">PIN Code</label>
                   <input
                     type="text"
                     value={form.zip_code}
                     onChange={(e) => setForm({ ...form, zip_code: e.target.value })}
-                    placeholder="10001"
+                    placeholder="400050"
                     className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono"
                   />
                 </div>

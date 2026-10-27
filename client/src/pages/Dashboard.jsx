@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
 import { api } from '../services/api';
 import {
-  DollarSign,
+  IndianRupee,
   TrendingUp,
   Wine,
   Boxes,
@@ -16,13 +16,36 @@ import {
   Truck,
   Landmark,
   Clock,
-  Sparkles
+  Sparkles,
+  RotateCcw
 } from 'lucide-react';
 
 export default function Dashboard({ setActiveTab }) {
-  const { selectedBranchId, selectedBranch, formatCurrency, refreshKey } = useApp();
+  const { selectedBranchId, selectedBranch, formatCurrency, refreshKey, user, addToast, triggerRefresh } = useApp();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [cleaning, setCleaning] = useState(false);
+
+  const handleCleanDatabase = async () => {
+    if (!window.confirm('Are you sure you want to clean and reseed the entire database with fresh Indian liquor store catalog, outlets, accounts, and demo stock? This cannot be undone.')) {
+      return;
+    }
+    setCleaning(true);
+    try {
+      const res = await api.cleanDatabase();
+      if (res.success) {
+        addToast(res.message || 'Database reset successfully with clean Indian catalog!', 'success');
+        triggerRefresh();
+        fetchDashboard();
+      } else {
+        addToast(res.error || 'Failed to reset database', 'error');
+      }
+    } catch (err) {
+      addToast(err.message || 'Error resetting database', 'error');
+    } finally {
+      setCleaning(false);
+    }
+  };
 
   const fetchDashboard = async () => {
     setLoading(true);
@@ -96,6 +119,17 @@ export default function Dashboard({ setActiveTab }) {
               <Boxes className="w-4 h-4 text-wine-400" />
               <span>Transfer Stock</span>
             </button>
+            {(!user || user.role === 'admin') && (
+              <button
+                onClick={handleCleanDatabase}
+                disabled={cleaning}
+                className="flex items-center gap-1.5 bg-rose-950/80 hover:bg-rose-900 text-rose-300 border border-rose-800/70 font-semibold px-3.5 py-2.5 rounded-xl text-xs transition-all shadow"
+                title="Wipe and clean database with fresh Indian liquor store catalog & outlets"
+              >
+                <RotateCcw className={`w-3.5 h-3.5 ${cleaning ? 'animate-spin' : ''}`} />
+                <span>{cleaning ? 'Resetting...' : 'Clean Indian DB'}</span>
+              </button>
+            )}
           </div>
         </div>
 
@@ -108,17 +142,17 @@ export default function Dashboard({ setActiveTab }) {
         {/* Total Sales */}
         <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 hover:border-slate-700 transition-all shadow-sm">
           <div className="flex items-center justify-between text-slate-400 mb-2">
-            <span className="text-xs font-semibold uppercase tracking-wider">Total Sales Revenue</span>
+            <span className="text-xs font-semibold uppercase tracking-wider">Total Sales Revenue (कुल बिक्री)</span>
             <div className="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400">
-              <DollarSign className="w-4 h-4" />
+              <IndianRupee className="w-4 h-4" />
             </div>
           </div>
           <div className="text-2xl font-bold text-white tracking-tight">
             {formatCurrency(kpis.totalRevenue)}
           </div>
           <div className="flex items-center justify-between mt-3 pt-3 border-t border-slate-800 text-xs">
-            <span className="text-slate-400">Today's Sales</span>
-            <span className="text-emerald-400 font-semibold">{formatCurrency(kpis.todayRevenue)} ({kpis.todayCount} txns)</span>
+            <span className="text-slate-400">Today's Sales (आज की बिक्री)</span>
+            <span className="text-emerald-400 font-semibold">{formatCurrency(kpis.todayRevenue)} ({kpis.todayCount} bills)</span>
           </div>
         </div>
 

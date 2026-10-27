@@ -379,7 +379,7 @@ export default function Banking() {
 
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="block text-slate-400 mb-1">Transfer Amount ($) *</label>
+                  <label className="block text-slate-400 mb-1">Transfer Amount (₹) *</label>
                   <input
                     type="number"
                     step="0.01"
@@ -455,7 +455,7 @@ export default function Banking() {
                   required
                   value={accountForm.account_name}
                   onChange={(e) => setAccountForm({ ...accountForm, account_name: e.target.value })}
-                  placeholder="e.g. Marina POS Safe Drawer or Citi Commercial"
+                  placeholder="e.g. Bandra POS Cash Gullak or SBI Commercial Current"
                   className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white"
                 />
               </div>
@@ -468,7 +468,7 @@ export default function Banking() {
                     required
                     value={accountForm.bank_name}
                     onChange={(e) => setAccountForm({ ...accountForm, bank_name: e.target.value })}
-                    placeholder="e.g. JPMorgan Chase"
+                    placeholder="e.g. State Bank of India (SBI)"
                     className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white"
                   />
                 </div>
@@ -479,7 +479,7 @@ export default function Banking() {
                     required
                     value={accountForm.account_number}
                     onChange={(e) => setAccountForm({ ...accountForm, account_number: e.target.value })}
-                    placeholder="e.g. 1948-2849-01"
+                    placeholder="e.g. 309488129041"
                     className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono"
                   />
                 </div>
@@ -495,8 +495,8 @@ export default function Banking() {
                   >
                     <option value="Checking / Current">Checking / Current</option>
                     <option value="Savings">Savings</option>
-                    <option value="Cash Drawer POS">Cash Drawer POS</option>
-                    <option value="Merchant Settlement">Merchant Settlement</option>
+                    <option value="Cash Drawer POS">POS Cash Counter (Gullak)</option>
+                    <option value="Merchant Settlement">UPI / QR Merchant Settlement</option>
                   </select>
                 </div>
                 <div>
@@ -515,7 +515,7 @@ export default function Banking() {
               </div>
 
               <div>
-                <label className="block text-slate-400 mb-1">Opening Cash Balance ($)</label>
+                <label className="block text-slate-400 mb-1">Opening Cash Balance (₹)</label>
                 <input
                   type="number"
                   step="0.01"

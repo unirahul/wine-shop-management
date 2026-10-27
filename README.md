@@ -1,53 +1,52 @@
-# 🍷 Grand Cru Wine Shop ERP - Multi-Branch Management System
+# 🍷 Royal Heritage - Indian Wine & Liquor Shop ERP (शाही वाइन & लिकर शॉप)
 
-A comprehensive, enterprise-grade Wine Store ERP, Point of Sale (POS), Inventory, Purchasing, Banking, Accounting, and Receipts/Payments Management System built for single or multi-outlet wine businesses and central cellars.
+A comprehensive, enterprise-grade Multi-Branch Indian Wine, IMFL & Beer Shop ERP, Point of Sale (POS), Godown Inventory, Purchasing, Banking (UPI & Cash), Accounting, and State Excise Compliance Management System.
 
 ---
 
-## 🌟 Core Modules & Features
+## 🌟 Core Modules & Indian Features
 
-### 1. 🏢 Multi-Branch & Outlet Management
-- **Multiple Outlets & Hubs:** Seamlessly manage retail wine boutiques, tasting lounges, waterfront cellars, and central distribution warehouses.
-- **Top Bar Branch Switcher:** Filter KPIs, inventory, sales, purchases, and accounting by an individual branch or view **All Branches (Consolidated)** in real-time.
-- **Branch Configuration:** Store name, address, phone, email, State Liquor License number, and assigned Lead Sommelier / Manager.
+### 1. 🏢 Multi-Branch & Outlet Management (दुकानें व गोदाम)
+- **Indian Retail Outlets & Godowns:** Manage retail shops (FL-II / L-2 / CL-2 vends) in Mumbai, Delhi, Bengaluru, Goa, and central bonded godowns (Bhiwandi).
+- **State Excise License Tracking:** Track State Excise license numbers (e.g. `MH-FL-II-2026-8819`, `DL-L-2-2026-4412`).
+- **Role-Based Branch Locking:** Cashiers only see and bill for their assigned outlet counter; Super Admin manages all India operations.
 
-### 2. 🍇 Wine Catalog & Master SKU Management
-- **Sommelier Attributes:** Grape Varietal, Vintage Year (or Non-Vintage), Appellation / Region (Bordeaux, Napa Valley, Marlborough, Piedmont, etc.), Country of Origin, Bottle Volume (750ml, 375ml, 1.5L Magnum, 3.0L), Alcohol By Volume (ABV %), and Category (Red, White, Rosé, Champagne & Sparkling, Fortified/Port, Accessories).
-- **Tasting Notes & Pairings:** Sommelier tasting profiles, aroma notes, and culinary food pairings.
-- **Multi-Tier Pricing:** Cost Price, Retail Selling Price, Wholesale Price, and Liquor Excise / VAT Tax rates.
-- **Branch Stock Breakdown:** Click any wine to see real-time bottle counts and cellar bin locations across every outlet.
+### 2. 🍾 Indian Liquor Catalog & Vernacular Packaging (IMFL, Beer & Wine)
+- **Categories:** IMFL Whisky, Indian Beer, Indian Wine (Sula, Grover, Fratelli), IMFL Rum (Old Monk), Vodka & Gin, Imported Premium Scotch, Ready-to-Drink (RTD Breezer).
+- **Indian Bottle Sizes:** Khamba / Full (750ml), Adha / Half (375ml), Pauva / Nip (180ml), Beer Bottles (650ml), Cans (500ml), Pints (330ml).
+- **State Liquor VAT & Excise Cess:** Indian tax structure per bottle and state.
 
-### 3. 📦 Cellar Inventory & Inter-Branch Stock Transfers
-- **Stock on Hand:** Live tracking of bottle quantities, batch/lot tracking, minimum reorder thresholds, and inventory cost & retail valuations.
-- **Cellar Rack & Bin Location:** Tag wines to physical cellar locations (e.g., *Aisle 3, Rack B, Bin 14*).
-- **Inter-Branch Stock Movement:**
-  - Create stock transfer requests between branches (e.g., Central Distribution Hub → Downtown Flagship Store).
-  - Source branch stock is immediately decremented upon dispatch.
-  - Destination branch verifies and confirms receipt with one click to increment destination stock.
-- **Breakage, Spoilage & Tasting Flight Write-Offs:**
-  - Record bottle breakage, corked/oxidized wine taint, sommelier tasting samples, and physical inventory audit adjustments.
-  - Automatically writes off inventory value and posts loss to the General Ledger.
+### 3. 📦 Godown Inventory & Inter-Branch Stock Transfers (गोदाम स्टॉक)
+- **Live Bottle Stock:** Real-time bottle stock tracking, batch/lot tracking, minimum reorder thresholds.
+- **Inter-Branch Stock Movement:** Move stock between central godown and retail vends with verification.
+- **Breakage & Spoilage Write-Offs:** Track bottle breakage, seal leaks, and excise lab samples with automatic ledger write-offs.
 
-### 4. 🛒 Purchasing & Winery / Vendor Management
-- **Wineries & Distributors Directory:** Supplier contact details, country, tax ID, and agreed credit payment terms (e.g., 30 or 45 days).
-- **Inward Purchase Bills:** Record container wine shipments or local distributor drops.
-- **Stock Auto-Intake:** Receiving a purchase bill automatically increments cellar inventory at the specified branch and updates cost prices.
-- **Accounts Payable (AP):** Automatically tracks unpaid balances and generates double-entry entries to Accounts Payable.
-- **Vendor Wire Disbursements:** Disburse payments against outstanding bills via Wire Transfer, Commercial Check, or Corporate Card.
+### 4. 🛒 Purchasing & Indian Distilleries (आवक खरीद)
+- **Indian Distilleries & Breweries:** United Spirits / Diageo India, Pernod Ricard, United Breweries (Kingfisher), Sula Vineyards, Mohan Meakin (Old Monk), Radico Khaitan.
+- **Inward Purchase Invoices (TP / Challan):** Auto-restock godown inventory and update Accounts Payable.
 
-### 5. 🛒 Point of Sale (POS) Counter & Sales Invoicing
-- **Fast POS Interface:** Optimized for fast counter checkouts with instant search by wine name, varietal, SKU, or barcode scanning.
-- **Category & Varietal Quick Filters:** One-click filtering by Red, White, Sparkling, Rosé, Fortified, and Accessories.
-- **Real-Time Stock Safeguards:** Prevents overselling by checking branch stock limits before adding to cart.
-- **Multiple Payment Methods:** Cash (with automated cash tendered and change returned calculator), Credit Card, UPI / QR, and Account Credit.
-- **Thermal Receipt & Tax Invoice Printing:**
-  - Instant POS thermal receipt print layout with outlet licensing details and age compliance notice.
-  - Standard A4 Tax Invoice with tax registration, itemized liquor excise, discount vouchers, and sommelier signature line.
-- **Customer Loyalty Points:** Automatically awards loyalty reward points on completed sales.
+### 5. 🛒 POS Billing Counter & Thermal Invoices (गल्ला व बिलिंग)
+- **Barcode & Fast Name Search:** Instant checkout with barcode scanner or name search.
+- **Indian Payment Methods:** Cash (नकद - quick note buttons ₹50, ₹100, ₹200, ₹500), UPI QR Soundbox (PhonePe, GPay, Paytm), Cards, and Udhar Khata (ग्राहक खाता).
+- **Thermal Receipt & Tax Invoice:** State Excise license display, age 21+/25+ compliance certified, itemized VAT.
 
-### 6. 🏦 Banking & Liquidity Management
-- **Multiple Accounts:** Commercial checking accounts (Chase, Wells Fargo), Merchant Card Settlement gateways (Stripe), and Counter Cash Drawers per branch.
-- **Inter-Account Transfers / Safe Drops:** Safely move daily cash drawer takings to commercial bank accounts.
+### 6. 🏦 Indian Banking & Cash Drawer (बैंक व गल्ला)
+- **Indian Bank Accounts:** SBI, HDFC Bank, ICICI Bank, Axis Bank, UPI QR Settlement Account, Counter Cash Drawers (गल्ला).
+- **Cash Deposit (गल्ला बैंक में जमा):** Move daily cash drawer takings safely to commercial bank accounts.
+
+### 7. ⚖️ Double-Entry Accounting & Ledger (बहीखाता)
+- **Indian Chart of Accounts (COA):** Assets, Liabilities, Equity, Sales Revenue, Excise Tax Ledgers, COGS, Operating Expenses.
+- **Reports:** Profit & Loss Statement, Balance Sheet, Trial Balance, General Journal.
+
+### 8. 👥 Customers & Udhar Khata (ग्राहक व उधार खाता)
+- **Customer Profiles:** Phone numbers (+91), loyalty tier, credit limits in INR (₹).
+- **Age 21+/25+ Excise Compliance.**
+
+### 9. 🧹 Clean & Reset Indian Database on Demand
+- Reset database anytime using the UI button on Dashboard or running:
+  ```bash
+  npm run clean-db
+  ```
 - **Bank Statement Reconciliation:** Detailed transaction history (Deposits, Withdrawals, Transfers) with Cleared / Reconciled status tracking.
 
 ### 7. 💳 Receipts & Payment Vouchers

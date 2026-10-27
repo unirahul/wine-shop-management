@@ -11,7 +11,7 @@ import {
   Layers,
   Sparkles,
   Tag,
-  DollarSign,
+  IndianRupee,
   Boxes,
   X,
   CheckCircle
@@ -228,13 +228,17 @@ export default function ProductsCatalog() {
             onChange={(e) => setTypeFilter(e.target.value)}
             className="bg-slate-800 border border-slate-700 text-xs text-slate-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-1 focus:ring-amber-500 cursor-pointer"
           >
-            <option value="">All Types</option>
-            <option value="Red">Red Wine</option>
-            <option value="White">White Wine</option>
-            <option value="Sparkling">Champagne & Sparkling</option>
-            <option value="Rosé">Rosé Wine</option>
-            <option value="Fortified">Fortified & Port</option>
-            <option value="Accessories">Accessories</option>
+            <option value="">All Liquor Types</option>
+            <option value="Whisky">Whisky & Single Malt</option>
+            <option value="Beer">Beers & Draught</option>
+            <option value="Rum">Rum</option>
+            <option value="Red Wine">Red Wine</option>
+            <option value="White Wine">White Wine</option>
+            <option value="Sparkling Wine">Sparkling & Champagne</option>
+            <option value="Vodka">Vodka</option>
+            <option value="Gin">Gin</option>
+            <option value="Brandy">Brandy</option>
+            <option value="Mixer">Mixers & Soda</option>
           </select>
         </div>
       </div>
@@ -355,13 +359,13 @@ export default function ProductsCatalog() {
             <form onSubmit={handleSubmit} className="space-y-4 text-xs">
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div className="sm:col-span-2">
-                  <label className="block text-slate-400 mb-1 font-medium">Wine / Product Name *</label>
+                  <label className="block text-slate-400 mb-1 font-medium">Liquor / Wine / Beer Name *</label>
                   <input
                     type="text"
                     required
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="e.g. Château Margaux Premier Grand Cru Classé"
+                    placeholder="e.g. Royal Challenge Classic 750ml, Blenders Pride, Sula Shiraz"
                     className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-1 focus:ring-amber-500"
                   />
                 </div>
@@ -436,12 +440,12 @@ export default function ProductsCatalog() {
 
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 <div>
-                  <label className="block text-slate-400 mb-1 font-medium">Region / Appellation</label>
+                  <label className="block text-slate-400 mb-1 font-medium">Region / State of Origin</label>
                   <input
                     type="text"
                     value={formData.region}
                     onChange={(e) => setFormData({ ...formData, region: e.target.value })}
-                    placeholder="e.g. Bordeaux"
+                    placeholder="e.g. Nashik, Maharashtra"
                     className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none"
                   />
                 </div>
@@ -458,16 +462,19 @@ export default function ProductsCatalog() {
                 </div>
 
                 <div>
-                  <label className="block text-slate-400 mb-1 font-medium">Bottle Size</label>
+                  <label className="block text-slate-400 mb-1 font-medium">Bottle Size (बोतल का साइज़)</label>
                   <select
                     value={formData.bottle_size}
                     onChange={(e) => setFormData({ ...formData, bottle_size: e.target.value })}
                     className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none"
                   >
-                    <option value="750ml">750ml Standard</option>
-                    <option value="375ml">375ml Half Bottle</option>
-                    <option value="1.5L">1.5L Magnum</option>
-                    <option value="3.0L">3.0L Double Magnum</option>
+                    <option value="750ml Khamba / Full">750ml (Khamba / Full Bottle)</option>
+                    <option value="375ml Adha / Half">375ml (Adha / Half / Pint)</option>
+                    <option value="180ml Pauva / Quarter">180ml (Pauva / Nip / Quarter)</option>
+                    <option value="650ml Bottle">650ml (Beer Bottle)</option>
+                    <option value="500ml Can">500ml (Beer Can)</option>
+                    <option value="330ml Pint">330ml (Pint Bottle / Can)</option>
+                    <option value="1000ml / 1L">1000ml / 1L (Duty Free Large)</option>
                   </select>
                 </div>
 
@@ -478,7 +485,7 @@ export default function ProductsCatalog() {
                     step="0.1"
                     value={formData.abv}
                     onChange={(e) => setFormData({ ...formData, abv: Number(e.target.value) })}
-                    placeholder="13.5"
+                    placeholder="42.8"
                     className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none font-mono"
                   />
                 </div>
@@ -487,7 +494,7 @@ export default function ProductsCatalog() {
               {/* Pricing & Stock Levels */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-slate-800/40 p-3 rounded-xl border border-slate-700/60">
                 <div>
-                  <label className="block text-slate-400 mb-1 font-medium">Cost Price ($)</label>
+                  <label className="block text-slate-400 mb-1 font-medium">Cost Price (₹)</label>
                   <input
                     type="number"
                     step="0.01"
@@ -499,7 +506,7 @@ export default function ProductsCatalog() {
                 </div>
 
                 <div>
-                  <label className="block text-amber-300 mb-1 font-medium">Retail Price ($) *</label>
+                  <label className="block text-amber-300 mb-1 font-medium">MRP / Retail Price (₹) *</label>
                   <input
                     type="number"
                     step="0.01"

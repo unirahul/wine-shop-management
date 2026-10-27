@@ -6,7 +6,7 @@ import {
   Plus,
   Search,
   Award,
-  DollarSign,
+  IndianRupee,
   Phone,
   Mail,
   ShieldCheck,
@@ -29,9 +29,9 @@ export default function Customers() {
     email: '',
     tax_id: '',
     address: '',
-    city: 'New York',
-    loyalty_tier: 'Silver Cellar',
-    credit_limit: 5000,
+    city: 'Mumbai',
+    loyalty_tier: 'Gold Reserve Club',
+    credit_limit: 50000,
     notes: ''
   });
 
@@ -69,9 +69,9 @@ export default function Customers() {
           email: '',
           tax_id: '',
           address: '',
-          city: 'New York',
-          loyalty_tier: 'Silver Cellar',
-          credit_limit: 5000,
+          city: 'Mumbai',
+          loyalty_tier: 'Gold Reserve Club',
+          credit_limit: 50000,
           notes: ''
         });
         loadCustomers();
@@ -215,7 +215,7 @@ export default function Customers() {
                   required
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  placeholder="e.g. Arthur Sterling or The Four Seasons Bistro"
+                  placeholder="e.g. Rajesh Kumar or Taj Vivanta Banquets"
                   className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white"
                 />
               </div>
@@ -227,7 +227,7 @@ export default function Customers() {
                     type="text"
                     value={form.phone}
                     onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                    placeholder="+1 212-555-0192"
+                    placeholder="+91 98200 12345"
                     className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white"
                   />
                 </div>
@@ -237,7 +237,7 @@ export default function Customers() {
                     type="email"
                     value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
-                    placeholder="sommelier@client.com"
+                    placeholder="accounts@client.com"
                     className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white"
                   />
                 </div>
@@ -245,20 +245,20 @@ export default function Customers() {
 
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="block text-slate-400 mb-1">Club Membership Tier</label>
+                  <label className="block text-slate-400 mb-1">Membership / Customer Tier</label>
                   <select
                     value={form.loyalty_tier}
                     onChange={(e) => setForm({ ...form, loyalty_tier: e.target.value })}
                     className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white"
                   >
-                    <option value="Silver Cellar">Silver Cellar</option>
-                    <option value="Gold Reserve">Gold Reserve</option>
-                    <option value="Platinum Sommelier">Platinum Sommelier</option>
-                    <option value="Corporate Wholesale">Corporate Wholesale</option>
+                    <option value="Regular Customer">Regular Customer</option>
+                    <option value="Silver Club">Silver Club</option>
+                    <option value="Gold Reserve Club">Gold Reserve Club</option>
+                    <option value="Corporate / Banquets">Corporate / Banquets Wholesale</option>
                   </select>
                 </div>
                 <div>
-                  <label className="block text-slate-400 mb-1">Credit Limit ($)</label>
+                  <label className="block text-slate-400 mb-1">Credit Limit (₹)</label>
                   <input
                     type="number"
                     value={form.credit_limit}
@@ -281,7 +281,7 @@ export default function Customers() {
 
               <div className="bg-emerald-950/40 p-2.5 rounded-xl border border-emerald-800/60 flex items-center gap-2 text-emerald-300">
                 <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span className="text-[11px]">Age 21+ legal compliance certified for wine purchasing.</span>
+                <span className="text-[11px]">Age 21+/25+ legal compliance certified under State Excise Rules.</span>
               </div>
 
               <div className="flex justify-end gap-2 pt-3 border-t border-slate-800">

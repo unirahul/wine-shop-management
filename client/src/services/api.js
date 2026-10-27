@@ -20,8 +20,9 @@ async function request(endpoint, options = {}) {
 }
 
 export const api = {
-  // Dashboard
+  // Dashboard & Database Operations
   getDashboard: (branchId) => request(`/dashboard?branch_id=${branchId || 'all'}`),
+  cleanDatabase: () => request('/dashboard/clean-database', { method: 'POST' }),
 
   // Branches
   getBranches: () => request('/branches'),
@@ -109,4 +110,11 @@ export const api = {
   },
   getBalanceSheet: (branchId) => request(`/accounting/balance-sheet?branch_id=${branchId || 'all'}`),
   getGeneralLedger: (accountId) => request(`/accounting/general-ledger/${accountId}`),
+
+  // Authentication & Staff Users
+  login: (credentials) => request('/auth/login', { method: 'POST', body: JSON.stringify(credentials) }),
+  getUsers: () => request('/auth/users'),
+  createUser: (data) => request('/auth/users', { method: 'POST', body: JSON.stringify(data) }),
+  updateUser: (id, data) => request(`/auth/users/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
+  deleteUser: (id) => request(`/auth/users/${id}`, { method: 'DELETE' }),
 };

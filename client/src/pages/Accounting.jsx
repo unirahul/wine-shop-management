@@ -92,7 +92,7 @@ export default function Accounting() {
     const totalCred = validLines.reduce((s, l) => s + Number(l.credit || 0), 0);
 
     if (Math.abs(totalDeb - totalCred) > 0.05) {
-      addToast(`Debits ($${totalDeb.toFixed(2)}) must equal Credits ($${totalCred.toFixed(2)})`, 'error');
+      addToast(`Debits (₹${totalDeb.toFixed(2)}) must equal Credits (₹${totalCred.toFixed(2)})`, 'error');
       return;
     }
 
@@ -208,7 +208,7 @@ export default function Accounting() {
               <div id="printable-area" className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-6 text-xs">
                 <div className="text-center border-b border-slate-800 pb-4">
                   <h2 className="font-serif font-black text-xl text-white tracking-wider uppercase">
-                    Grand Cru Wine & Spirits Management
+                    Royal Heritage Wine & Spirits ERP
                   </h2>
                   <p className="text-slate-400">Statement of Profit & Loss (Income Statement)</p>
                   <p className="text-[11px] text-amber-300 font-mono mt-1">
@@ -220,7 +220,7 @@ export default function Accounting() {
                 <div className="space-y-2">
                   <div className="flex justify-between items-center text-sm font-bold text-emerald-400 border-b border-slate-800 pb-1">
                     <span>1. Operating Revenue</span>
-                    <span>Amount ($)</span>
+                    <span>Amount (₹)</span>
                   </div>
                   {pnlData.revenueItems.map(item => (
                     <div key={item.id} className="flex justify-between text-slate-300 py-1 pl-4">
@@ -238,7 +238,7 @@ export default function Accounting() {
                 <div className="space-y-2">
                   <div className="flex justify-between items-center text-sm font-bold text-amber-400 border-b border-slate-800 pb-1">
                     <span>2. Cost of Goods Sold (COGS)</span>
-                    <span>Amount ($)</span>
+                    <span>Amount (₹)</span>
                   </div>
                   {pnlData.cogsItems.map(item => (
                     <div key={item.id} className="flex justify-between text-slate-300 py-1 pl-4">
@@ -262,7 +262,7 @@ export default function Accounting() {
                 <div className="space-y-2">
                   <div className="flex justify-between items-center text-sm font-bold text-rose-400 border-b border-slate-800 pb-1">
                     <span>3. Operating Expenses</span>
-                    <span>Amount ($)</span>
+                    <span>Amount (₹)</span>
                   </div>
                   {pnlData.opexItems.map(item => (
                     <div key={item.id} className="flex justify-between text-slate-300 py-1 pl-4">
@@ -294,7 +294,7 @@ export default function Accounting() {
             <div id="printable-area" className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-6 text-xs">
               <div className="text-center border-b border-slate-800 pb-4">
                 <h2 className="font-serif font-black text-xl text-white tracking-wider uppercase">
-                  Grand Cru Wine & Spirits Management
+                  Royal Heritage Wine & Spirits ERP
                 </h2>
                 <p className="text-slate-400">Statement of Financial Position (Balance Sheet)</p>
                 <div className="flex items-center justify-center gap-2 mt-2">
@@ -389,7 +389,7 @@ export default function Accounting() {
                 </div>
                 <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-emerald-950 text-emerald-300 border border-emerald-800">
                   <CheckCircle className="w-3.5 h-3.5" />
-                  Debits = Credits Verified ($0.00 Variance)
+                  Debits = Credits Verified (₹0.00 Variance)
                 </span>
               </div>
 
@@ -400,8 +400,8 @@ export default function Accounting() {
                       <th className="p-3">GL Code</th>
                       <th className="p-3">Account Title</th>
                       <th className="p-3">Type</th>
-                      <th className="p-3 text-right">Debit Balance ($)</th>
-                      <th className="p-3 text-right">Credit Balance ($)</th>
+                      <th className="p-3 text-right">Debit Balance (₹)</th>
+                      <th className="p-3 text-right">Credit Balance (₹)</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-800">
@@ -471,8 +471,8 @@ export default function Accounting() {
                       <tr>
                         <th className="p-2.5">Account Code & Title</th>
                         <th className="p-2.5">Line Memo</th>
-                        <th className="p-2.5 text-right">Debit ($)</th>
-                        <th className="p-2.5 text-right">Credit ($)</th>
+                        <th className="p-2.5 text-right">Debit (₹)</th>
+                        <th className="p-2.5 text-right">Credit (₹)</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-800/60">
@@ -626,7 +626,7 @@ export default function Accounting() {
                       <input
                         type="number"
                         step="0.01"
-                        placeholder="Debit ($)"
+                        placeholder="Debit (₹)"
                         value={line.debit}
                         onChange={(e) => {
                           const newLines = [...manualForm.lines];
@@ -642,7 +642,7 @@ export default function Accounting() {
                       <input
                         type="number"
                         step="0.01"
-                        placeholder="Credit ($)"
+                        placeholder="Credit (₹)"
                         value={line.credit}
                         onChange={(e) => {
                           const newLines = [...manualForm.lines];

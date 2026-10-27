@@ -249,7 +249,7 @@ export default function SalesInvoices() {
                       {inv.balance_amount > 0 ? (
                         <span className="text-rose-400">{formatCurrency(inv.balance_amount)}</span>
                       ) : (
-                        <span className="text-slate-500">$0.00</span>
+                        <span className="text-slate-500">₹0.00</span>
                       )}
                     </td>
                     <td className="py-3.5 px-4 text-center">
@@ -308,11 +308,11 @@ export default function SalesInvoices() {
                 <div className="flex justify-between items-start border-b border-slate-200 pb-5">
                   <div>
                     <h2 className="font-serif font-black text-2xl text-slate-950 uppercase tracking-wider">
-                      Grand Cru Wines
+                      Royal Heritage Wines & Spirits
                     </h2>
                     <p className="text-slate-600 font-medium">{invoiceDetails.invoice.branch_name}</p>
                     <p className="text-slate-500 text-[11px]">{invoiceDetails.invoice.branch_address}</p>
-                    <p className="text-slate-500 text-[11px]">Liquor Lic: {invoiceDetails.invoice.branch_license}</p>
+                    <p className="text-slate-500 text-[11px]">State Excise Lic: <span className="font-mono font-bold">{invoiceDetails.invoice.branch_license}</span></p>
                     <p className="text-slate-500 text-[11px]">Tel: {invoiceDetails.invoice.branch_phone}</p>
                   </div>
                   <div className="text-right">
@@ -351,7 +351,7 @@ export default function SalesInvoices() {
                       <th className="py-2 text-center">Vintage</th>
                       <th className="py-2 text-right">Price</th>
                       <th className="py-2 text-center">Qty</th>
-                      <th className="py-2 text-right">Tax</th>
+                      <th className="py-2 text-right">VAT/Tax</th>
                       <th className="py-2 text-right">Total</th>
                     </tr>
                   </thead>
@@ -363,10 +363,10 @@ export default function SalesInvoices() {
                           <p className="text-[10px] text-slate-500">{it.varietal} • {it.bottle_size} • {it.region || ''}</p>
                         </td>
                         <td className="py-2.5 text-center text-slate-600 font-mono">{it.vintage_year || 'NV'}</td>
-                        <td className="py-2.5 text-right font-mono">${it.unit_price.toFixed(2)}</td>
+                        <td className="py-2.5 text-right font-mono">₹{it.unit_price.toFixed(2)}</td>
                         <td className="py-2.5 text-center font-bold">{it.quantity}</td>
-                        <td className="py-2.5 text-right font-mono text-slate-600">${it.tax_amount.toFixed(2)}</td>
-                        <td className="py-2.5 text-right font-mono font-bold text-slate-900">${it.line_total.toFixed(2)}</td>
+                        <td className="py-2.5 text-right font-mono text-slate-600">₹{it.tax_amount.toFixed(2)}</td>
+                        <td className="py-2.5 text-right font-mono font-bold text-slate-900">₹{it.line_total.toFixed(2)}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -377,30 +377,30 @@ export default function SalesInvoices() {
                   <div className="w-64 space-y-1.5 text-right text-xs">
                     <div className="flex justify-between text-slate-600">
                       <span>Subtotal:</span>
-                      <span className="font-mono font-semibold">${invoiceDetails.invoice.subtotal.toFixed(2)}</span>
+                      <span className="font-mono font-semibold">₹{invoiceDetails.invoice.subtotal.toFixed(2)}</span>
                     </div>
                     {invoiceDetails.invoice.discount_amount > 0 && (
                       <div className="flex justify-between text-emerald-700">
                         <span>Discount:</span>
-                        <span className="font-mono font-semibold">-${invoiceDetails.invoice.discount_amount.toFixed(2)}</span>
+                        <span className="font-mono font-semibold">-₹{invoiceDetails.invoice.discount_amount.toFixed(2)}</span>
                       </div>
                     )}
                     <div className="flex justify-between text-slate-600">
-                      <span>Liquor Tax:</span>
-                      <span className="font-mono font-semibold">${invoiceDetails.invoice.tax_amount.toFixed(2)}</span>
+                      <span>Liquor VAT/Tax:</span>
+                      <span className="font-mono font-semibold">₹{invoiceDetails.invoice.tax_amount.toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between text-base font-bold text-slate-950 pt-2 border-t-2 border-slate-900">
                       <span>Total Amount:</span>
-                      <span className="font-mono">${invoiceDetails.invoice.total_amount.toFixed(2)}</span>
+                      <span className="font-mono">₹{invoiceDetails.invoice.total_amount.toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between text-slate-600">
                       <span>Amount Paid:</span>
-                      <span className="font-mono font-semibold">${invoiceDetails.invoice.paid_amount.toFixed(2)}</span>
+                      <span className="font-mono font-semibold">₹{invoiceDetails.invoice.paid_amount.toFixed(2)}</span>
                     </div>
                     {invoiceDetails.invoice.balance_amount > 0 && (
                       <div className="flex justify-between text-rose-700 font-bold">
                         <span>Balance Due:</span>
-                        <span className="font-mono">${invoiceDetails.invoice.balance_amount.toFixed(2)}</span>
+                        <span className="font-mono">₹{invoiceDetails.invoice.balance_amount.toFixed(2)}</span>
                       </div>
                     )}
                   </div>
@@ -472,7 +472,7 @@ export default function SalesInvoices() {
 
             <div className="space-y-3 text-xs">
               <div>
-                <label className="block text-slate-400 mb-1 font-medium">Receipt Amount ($)</label>
+                <label className="block text-slate-400 mb-1 font-medium">Receipt Amount (₹)</label>
                 <input
                   type="number"
                   min="0.01"

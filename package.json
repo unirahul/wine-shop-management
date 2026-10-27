@@ -7,7 +7,8 @@
     "server": "node server/index.js",
     "client": "npm run dev --prefix client",
     "build": "npm install --prefix client && npm run build --prefix client",
-    "start": "node server/index.js"
+    "start": "node server/index.js",
+    "clean-db": "node server/clean_db.js"
   },
   "keywords": ["wine", "erp", "pos", "accounting", "inventory", "banking"],
   "author": "Antigravity",

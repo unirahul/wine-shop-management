@@ -8,7 +8,7 @@ import {
   ArrowUpRight,
   Search,
   Building,
-  DollarSign,
+  IndianRupee,
   CheckCircle,
   X,
   FileText,
@@ -202,7 +202,7 @@ export default function ReceiptsPayments() {
             <p className="text-xs text-slate-500 mt-1">{receipts.length} receipt vouchers recorded</p>
           </div>
           <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-emerald-400">
-            <DollarSign className="w-6 h-6" />
+            <IndianRupee className="w-6 h-6" />
           </div>
         </div>
 
@@ -406,7 +406,7 @@ export default function ReceiptsPayments() {
 
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="block text-slate-400 mb-1">Amount ($) *</label>
+                  <label className="block text-slate-400 mb-1">Amount (₹) *</label>
                   <input
                     type="number"
                     step="0.01"
@@ -551,7 +551,7 @@ export default function ReceiptsPayments() {
 
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="block text-slate-400 mb-1">Amount ($) *</label>
+                  <label className="block text-slate-400 mb-1">Amount (₹) *</label>
                   <input
                     type="number"
                     step="0.01"

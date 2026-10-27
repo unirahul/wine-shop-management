@@ -1,7 +1,7 @@
 {
-  "name": "Grand Cru Wine Shop ERP",
-  "short_name": "WineShop ERP",
-  "description": "Multi-Branch Wine Shop ERP, Point of Sale, Inventory, Banking & Accounting Management System",
+  "name": "Royal Heritage Indian Wine & Liquor ERP",
+  "short_name": "IndianWine ERP",
+  "description": "Multi-Branch Indian Wine & IMFL Liquor Shop ERP, POS Counter, State Excise, Godown Inventory & Accounting",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#020617",

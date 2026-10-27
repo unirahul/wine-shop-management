@@ -17,6 +17,7 @@ initDatabase();
 seedDatabase();
 
 // API Routes
+app.use('/api/auth', require('./routes/auth'));
 app.use('/api/dashboard', require('./routes/dashboard'));
 app.use('/api/branches', require('./routes/branches'));
 app.use('/api/products', require('./routes/products'));
@@ -31,7 +32,8 @@ app.use('/api/accounting', require('./routes/accounting'));
 app.get('/api/health', (req, res) => {
   res.json({
     status: 'online',
-    app: 'Grand Cru Wine Shop ERP & Multi-Branch Accounting',
+    app: 'Royal Heritage Wine & Spirits ERP (Indian Liquor Shop Management)',
+    currency: 'INR (₹)',
     version: '1.0.0',
     timestamp: new Date().toISOString()
   });
@@ -55,7 +57,7 @@ app.use((req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🍷 Grand Cru Wine Shop ERP Server listening on port ${PORT}`);
+  console.log(`🍷 Royal Heritage Wine & Spirits ERP Server listening on port ${PORT}`);
   console.log(`👉 API Health: http://localhost:${PORT}/api/health`);
   console.log(`👉 Web App URL: http://localhost:${PORT}`);
 });

@@ -7,7 +7,7 @@ import {
   Search,
   Building2,
   Receipt,
-  DollarSign,
+  IndianRupee,
   Calendar,
   CheckCircle,
   X,
@@ -215,10 +215,10 @@ export default function Purchasing() {
         <div>
           <h1 className="text-2xl font-serif font-bold text-white flex items-center gap-2">
             <Truck className="w-6 h-6 text-emerald-400" />
-            Purchasing, Wineries & Inward Invoices
+            Purchasing, Distilleries & Inward Invoices
           </h1>
           <p className="text-xs text-slate-400 mt-1">
-            Order wine allocations directly from Bordeaux, Napa, and Tuscan estates. Inward receipts automatically restock cellar inventory and post to Accounts Payable.
+            Order liquor consignments directly from Indian distilleries, breweries, and state bonded warehouses. Inward receipts automatically restock godown inventory and post to Accounts Payable.
           </p>
         </div>
 
@@ -228,14 +228,14 @@ export default function Purchasing() {
             className="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-colors"
           >
             <Building2 className="w-4 h-4 text-amber-400" />
-            <span>New Winery / Vendor</span>
+            <span>New Distillery / Vendor</span>
           </button>
           <button
             onClick={() => setShowPOModal(true)}
             className="bg-emerald-700 hover:bg-emerald-600 text-white font-semibold px-4 py-2 rounded-xl text-xs flex items-center gap-2 shadow-md transition-colors"
           >
             <Plus className="w-4 h-4" />
-            <span>Record Inward Wine Purchase</span>
+            <span>Record Inward Stock Purchase</span>
           </button>
         </div>
       </div>
@@ -255,7 +255,7 @@ export default function Purchasing() {
           <p className="text-xl font-bold text-amber-300 mt-1">{purchases.length} bills</p>
         </div>
         <div className="bg-slate-900 border border-slate-800 rounded-xl p-4">
-          <span className="text-[10px] text-slate-400 uppercase font-semibold">Active Wineries & Importers</span>
+          <span className="text-[10px] text-slate-400 uppercase font-semibold">Active Distilleries & Vendors</span>
           <p className="text-xl font-bold text-sky-400 mt-1">{vendors.length} vendors</p>
         </div>
       </div>
@@ -320,7 +320,7 @@ export default function Purchasing() {
                         {p.balance_amount > 0 ? (
                           <span className="text-rose-400">{formatCurrency(p.balance_amount)}</span>
                         ) : (
-                          <span className="text-slate-500">$0.00</span>
+                          <span className="text-slate-500">₹0.00</span>
                         )}
                       </td>
                       <td className="py-3.5 px-4 text-center">
@@ -576,7 +576,7 @@ export default function Purchasing() {
               {/* Payment Advance */}
               <div className="grid grid-cols-2 gap-3 bg-slate-800/40 p-3 rounded-xl border border-slate-700/60">
                 <div>
-                  <label className="block text-slate-400 mb-1">Immediate Advance Paid ($)</label>
+                  <label className="block text-slate-400 mb-1">Immediate Advance Paid (₹)</label>
                   <input
                     type="number"
                     min="0"
@@ -749,14 +749,14 @@ export default function Purchasing() {
 
             <div className="space-y-3 text-xs">
               <div>
-                <label className="block text-slate-400 mb-1">Disbursement Amount ($)</label>
+                <label className="block text-slate-400 mb-1">Disbursement Amount (₹)</label>
                 <input
                   type="number"
                   min="0.01"
                   max={payModal.balance_amount}
                   value={payAmount}
                   onChange={(e) => setPayAmount(e.target.value)}
-                  className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white font-bold"
+                  className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white font-bold font-mono"
                 />
               </div>
 
@@ -860,8 +860,8 @@ export default function Purchasing() {
                       <tr key={i}>
                         <td className="p-2.5 text-white font-medium">{it.product_name}</td>
                         <td className="p-2.5 text-center font-bold text-white">{it.quantity}</td>
-                        <td className="p-2.5 text-right font-mono text-slate-300">${it.unit_cost.toFixed(2)}</td>
-                        <td className="p-2.5 text-right font-mono font-bold text-amber-300">${it.total_cost.toFixed(2)}</td>
+                        <td className="p-2.5 text-right font-mono text-slate-300">₹{it.unit_cost.toFixed(2)}</td>
+                        <td className="p-2.5 text-right font-mono font-bold text-amber-300">₹{it.total_cost.toFixed(2)}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -869,9 +869,9 @@ export default function Purchasing() {
               </div>
 
               <div className="pt-2 text-right text-xs space-y-1">
-                <p className="text-slate-400">Subtotal: <span className="text-white font-mono">${poDetails.purchase.subtotal.toFixed(2)}</span></p>
-                <p className="text-slate-400">Tax: <span className="text-white font-mono">${poDetails.purchase.tax_amount.toFixed(2)}</span></p>
-                <p className="text-sm font-bold text-white">Total Bill: <span className="text-amber-300 font-mono">${poDetails.purchase.total_amount.toFixed(2)}</span></p>
+                <p className="text-slate-400">Subtotal: <span className="text-white font-mono">₹{poDetails.purchase.subtotal.toFixed(2)}</span></p>
+                <p className="text-slate-400">Tax: <span className="text-white font-mono">₹{poDetails.purchase.tax_amount.toFixed(2)}</span></p>
+                <p className="text-sm font-bold text-white">Total Bill: <span className="text-amber-300 font-mono">₹{poDetails.purchase.total_amount.toFixed(2)}</span></p>
               </div>
             </div>
 
